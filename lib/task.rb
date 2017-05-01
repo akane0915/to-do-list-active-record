@@ -9,4 +9,14 @@ class Task
     self.description.==(another_task.description)
   end
 
+  def self.all
+    returned_tasks = DB.exec('SELECT * FROM tasks;')
+    tasks = []
+    returned_tasks.each do |task|
+      description = task.fetch('description')
+      tasks.push(Task.new({:description => description}))
+    end
+    tasks
+  end
+
 end

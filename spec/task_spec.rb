@@ -15,7 +15,13 @@ describe(Task) do
     it('is the same task if it has the same description') do
       task1 = Task.new({:description => "learn SQL"})
       task2 = Task.new({:description => "learn SQL"})
-      expect(task1).to(eq(task2))
+      expect(task1.==(task2)).to(eq(true))
+    end
+  end
+
+  describe(".all") do
+    it('returns an array of all tasks; it is empty to start') do
+      expect(Task.all).to(eq([]))
     end
   end
 end
