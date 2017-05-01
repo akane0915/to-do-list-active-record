@@ -1,15 +1,4 @@
-require('rspec')
-require('pg')
-require('task')
-require('pry')
-
-DB = PG.connect({:dbname => 'to_do_test'})
-
-RSpec.configure do |config|
-  config.after(:each) do
-    DB.exec('DELETE FROM tasks *;')
-  end
-end
+require('spec_helper')
 
 describe(Task) do
   describe('.all') do
@@ -18,13 +7,6 @@ describe(Task) do
     end
   end
 
-  describe('#save') do
-    it('adds a task to the array') do
-      task1 = Task.new({:description => 'learn SQL', :list_id => 1})
-      task1.save
-      expect(Task.all).to(eq([task1]))
-    end
-  end
 
   describe('#description') do
     it('returns the description of the task') do
@@ -48,9 +30,12 @@ describe(Task) do
     end
   end
 
-
-
-
-
+  describe('#save') do
+    it('adds a task to the array') do
+      task1 = Task.new({:description => 'learn SQL', :list_id => 1})
+      task1.save
+      expect(Task.all).to(eq([task1]))
+    end
+  end
 
 end

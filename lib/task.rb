@@ -14,8 +14,9 @@ class Task
     returned_tasks = DB.exec('SELECT * FROM tasks;')
     tasks = []
     returned_tasks.each do |task|
+      list_id = task.fetch('list_id').to_i
       description = task.fetch('description')
-      tasks.push(Task.new({:description => description}))
+      tasks.push(Task.new({:description => description, :list_id => list_id}))
     end
     tasks
   end
