@@ -1,9 +1,10 @@
-require 'sinatra'
-require 'sinatra/reloader'
-require './lib/todo'
-require 'pry'
+require("sinatra")
+require("sinatra/reloader")
+also_reload("lib/**/*.rb")
+require("./lib/task")
+require("pg")
 
-also_reload('lib/**/*.rb')
+DB = PG.connect({:dbname => "to_do"})
 
 get('/') do
   erb(:index)
