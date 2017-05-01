@@ -17,7 +17,14 @@ describe(List) do
       expect(list.name).to(eq('Epicodus stuff'))
     end
   end
-  
+
+  describe('#id') do
+    it ('returns the list id') do
+      list = List.new({:name => 'Epicodus stuff', :id => 12})
+      expect(list.id).to(be_an_instance_of(Fixnum))
+    end
+  end
+
   describe(".all") do
     it('starts off with no lists') do
       expect(List.all).to(eq([]))
