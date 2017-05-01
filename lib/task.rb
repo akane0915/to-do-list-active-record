@@ -1,8 +1,9 @@
 class Task
-  attr_reader(:description)
+  attr_reader(:description, :list_id)
 
   def initialize(attributes)
     @description = attributes.fetch(:description)
+    @list_id = attributes.fetch(:list_id)
   end
 
   def ==(another_task)
@@ -20,7 +21,7 @@ class Task
   end
 
   def save
-    DB.exec("INSERT INTO tasks (description) VALUES ('#{@description}')")
+    DB.exec("INSERT INTO tasks (description, list_id) VALUES ('#{@description}', #{@list_id});")
   end
 
 end
