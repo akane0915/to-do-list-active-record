@@ -36,4 +36,27 @@ describe(List) do
       expect(list1).to(eq(list2))
     end
   end
+
+  describe('.find') do
+    it('returns a list by ID') do
+      list1 = List.new({:name => 'Epicodus stuff', :id => nil})
+      list1.save
+      list2 = List.new({:name => 'Epicodus stuff', :id => nil})
+      list2.save
+      expect(List.find(list1.id)).to(eq(list1))
+    end
+  end
+
+  describe('#tasks') do
+    it('returns all tasks for selected list') do
+      test_list1 = List.new({:name => "Epicodus stuff", :id => nil})
+      test_list1.save()
+      test_task1 = Task.new({:description => "Learn SQL", :list_id => test_list1.id(), :due_date => '2017-01-01'})
+      test_task1.save()
+      test_task2 = Task.new({:description => "Review Ruby", :list_id => test_list1.id(), :due_date => '2017-02-02'})
+      test_task2.save()
+      expect(test_list1.tasks).to(eq([test_task1,test_task2]))
+    end
+  end
+
 end
