@@ -24,4 +24,12 @@ describe(Task) do
       expect(Task.all).to(eq([]))
     end
   end
+
+  describe("#save") do
+    it('adds a task to the array') do
+      task1 = Task.new({:description => "learn SQL"})
+      task1.save
+      expect(Task.all).to(eq([task1]))
+    end
+  end
 end
