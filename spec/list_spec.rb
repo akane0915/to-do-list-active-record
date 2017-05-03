@@ -59,4 +59,13 @@ describe(List) do
     end
   end
 
+  describe('#update') do
+    it("lets you update lists in the database") do
+      list = List.new({:name => "Epicodus stuff", :id => nil})
+      list.save
+      list.update({:name => "Homework stuff"})
+      expect(list.name).to eq "Homework stuff"
+    end
+  end
+
 end

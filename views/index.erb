@@ -1,4 +1,40 @@
+<h2>Create a new list: </h2>
 
-<a href="/lists">View all lists</a>
-<br>
-<a href="/lists/new">Add New List</a>
+<form action="/lists" method="post">
+  <div class="form-group">
+     <label for="name">Enter a list name</label>
+     <input name="name" class="form-control" type="text">
+  </div>
+  <hr>
+  <button class="btn btn-success">Add List</button>
+</form>
+
+<h2>Add a task to any list: </h2>
+
+<form action="/tasks" method="post">
+  <label for="list_id">Select a List</label>
+  <select id='list_id' name='list_id' type='text'>
+    <% @lists.each() do |list| %>
+      <option value="<%= list.id()%>"> <%= list.name() %> </option>
+    <% end %>
+  </select>
+
+  <label for="description">Description of the task:</label>
+  <input id="description" name="description" type="text">
+
+  <label for="due_date">Enter the due date:</label>
+  <input id="due_date" name="due_date" type="date">
+
+  <button type="submit">Add task</button>
+</form>
+
+<% if @lists.any? %>
+  <h3>Click on a list to see its tasks:</h3>
+  <ul>
+    <% @lists.each do |list| %>
+      <li><a href="/lists/<%= list.id%>"><%= list.name%></a></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>There are no lists yet you silly mongoose!</p>
+<% end %>

@@ -9,18 +9,16 @@ require('pry')
 DB = PG.connect({:dbname => "to_do_test"})
 
 get('/') do
+  @lists = List.all
   erb(:index)
-end
-
-get('/lists/new') do
-  erb(:list_form)
 end
 
 post('/lists') do
   name = params.fetch('name')
   new_list = List.new({:name => name, :id => nil})
   new_list.save
-  erb(:success_list)
+  @lists = List.all
+  erb(:index)
 end
 
 get('/lists') do
@@ -37,8 +35,8 @@ post('/tasks') do
   description = params.fetch('description')
   list_id = params.fetch('list_id').to_i
   due_date = params.fetch('due_date')
+  task = Task.new({:description => description, :list_id => list_id, :due_date => due_date})
+  task.save
   @list = List.find(list_id)
-  @task = Task.new({:description => description, :list_id => list_id, :due_date => due_date})
-  @task.save
-  erb(:success_task)
+  erb(:list)
 end

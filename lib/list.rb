@@ -48,5 +48,11 @@ class List
     list_tasks
   end
 
+  def update (attributes)
+    @name = attributes.fetch(:name)
+    @id = self.id
+    DB.exec("UPDATE lists SET name = '#{@name}' WHERE id = #{@id};")
+  end
+
 
 end
