@@ -52,3 +52,10 @@ patch('/lists/:id') do
   @list.update({:name => name})
   erb(:list)
 end
+
+delete('/lists/:id') do
+  @list = List.find(params.fetch('id').to_i)
+  @list.delete
+  @lists = List.all
+  erb(:index)
+end
