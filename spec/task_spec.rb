@@ -1,41 +1,21 @@
 require('spec_helper')
 
 describe(Task) do
-  describe('.all') do
-    it('returns an array of all tasks; it is empty to start') do
-      expect(Task.all).to(eq([]))
+
+  describe('.not_done')do
+    it 'returns the not done tasks' do
+      task1 = Task.create({:description => 'gotta do it', :done => false})
+      task2 = Task.create({:description => 'gotta do it too', :done => false})
+      task3 = Task.create({:description => 'done task', :done => true})
+      expect(Task.not_done).to eq [task1, task2]
     end
   end
 
-
-  describe('#description') do
-    it('returns the description of the task') do
-      task1 = Task.new({:description => 'learn SQL', :list_id => 1, :due_date => '2017-05-01'})
-      expect(task1.description).to(eq('learn SQL'))
+  describe('#list') do
+    it 'return the list that this task belongs to' do
+      test_list = List.create({:name => 'list'})
+      test_task = Task.create({:description => 'gotta do it', :list_id => test_list.id})
+      expect(test_task.list).to eq test_list
     end
   end
-
-  describe('#list_id')do
-    it('returns the list ID associated with a task')do
-      task1 = Task.new({:description => 'learn SQL', :list_id => 1, :due_date => '2017-05-01'})
-      expect(task1.list_id).to(eq(1))
-    end
-  end
-
-  describe('#==') do
-    it('is the same task if it has the same description') do
-      task1 = Task.new({:description => 'learn SQL', :list_id => 1, :due_date => '2017-05-01'})
-      task2 = Task.new({:description => 'learn SQL', :list_id => 1, :due_date => '2017-05-01'})
-      expect(task1.==(task2)).to(eq(true))
-    end
-  end
-
-  describe('#save') do
-    it('adds a task to the array') do
-      task1 = Task.new({:description => 'learn SQL', :list_id => 1, :due_date => '2017-05-01'})
-      task1.save
-      expect(Task.all).to(eq([task1]))
-    end
-  end
-
 end
