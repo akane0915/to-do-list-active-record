@@ -40,7 +40,7 @@
 <% end %>
 
 <% @tasks.each do |task| %>
-  <li><%= task.description %> <a href="/tasks/<%= task.id %>/edit">Update task description</a></li>
+  <li><a href="/tasks/<%= task.id %>/edit"><%= task.description %> </a></li>
 <% end %>
 
 <% if @tasks.any? %>

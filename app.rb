@@ -16,9 +16,9 @@ end
 
 post('/lists') do
   name = params.fetch('name')
-  new_list = List.new({:name => name, :id => nil})
-  new_list.save
+  new_list = List.create({:name => name})
   @lists = List.all
+  @tasks = Task.all
   erb(:index)
 end
 
@@ -58,10 +58,11 @@ delete('/lists/:id') do
   @list = List.find(params.fetch('id').to_i)
   @list.delete
   @lists = List.all
+  @tasks = Task.all
   erb(:index)
 end
 
-get 'tasks/:id/edit' do
+get '/tasks/:id/edit' do
   @task = Task.find(params['id'].to_i)
   erb :task_edit
 end
@@ -70,5 +71,14 @@ patch '/tasks/:id' do
   @task = Task.find(params['id'].to_i)
   @task.update({:description => params['description']})
   @tasks = Task.all
+  @lists = List.all
+  erb :index
+end
+
+delete '/tasks/:id' do
+  @task = Task.find(params['id'].to_i)
+  @task.delete
+  @tasks = Task.all
+  @lists = List.all
   erb :index
 end
